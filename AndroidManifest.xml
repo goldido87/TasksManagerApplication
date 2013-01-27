@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="il.ac.shenkar.todos"
+    android:versionCode="2"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="17" />
+
+    <!--
+         Fine access to location requires this permission.
+         This permission implies access coarse location.    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.example.mapdemo.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    
+    <application
+        android:configChanges="keyboardHidden|orientation"
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light" >
+
+        <receiver 
+            android:name="il.ac.shenkar.todos.WidgetProvider"
+            android:label="Task Manager Widget"
+            android:icon="@drawable/app_icon" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+			
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
+           
+        </receiver>
+    	
+        <service android:name="NotificationService"> </service>
+        <service android:name=".TextToSpeechService"> </service>
+         
+        <activity
+            android:name="il.ac.shenkar.todos.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="il.ac.shenkar.todos.NotificationReceiverActivity"
+            android:label="@string/title_activity_notification"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" >
+        </activity>
+
+        <receiver
+            android:name="il.ac.shenkar.todos.AlarmReceiver"
+            android:process=":remote" >
+        </receiver>
+    </application>
+
+</manifest>
